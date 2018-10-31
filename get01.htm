@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input type="text" id="aa"> +
+<input type="text" id="bb">
+<button>=</button> <span id="cc"></span>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $('button').click(function(){
+        var a = $('#aa').val();
+        var b = $('#bb').val();
+
+        $.get('get01.php', {a:a, b:b}, function(data){
+            $('#cc').text(data);
+        });
+
+    });
+
+
+
+</script>
+</body>
+</html>
+
+
+
