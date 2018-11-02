@@ -1,14 +1,19 @@
 <?php
 session_start();
+
+$user = isset($_POST['user']) ? $_POST['user'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
+
 // 如果還沒有登入
 if(! isset($_SESSION['user'])){
-
     // 判斷是否有送登入的帳號密碼
     if(isset($_POST['user']) and isset($_POST['password'])){
-        
         // 比對帳號和密碼是否正確
         if($_POST['user']==='shin' and $_POST['password']==='1234'){
             $_SESSION['user'] = 'shin'; // 代表已登入
+        } else {
+            // 設定訊息變數
+            $msg = '帳號或密碼錯誤';
         }
     }
 }
@@ -28,12 +33,19 @@ Hello <?= $_SESSION['user'] ?>
     <br>
     <a href="logout01.php">登出</a>
 <?php else: ?>
+
+    <?php
+    // 如果有設定訊息變數, 顯示變數內容
+    if(isset($msg)): ?>
+    <div style="color:red"><?= $msg ?></div>
+    <?php endif ?>
+
 <form action="" method="post">
     <label for="user">用戶名稱</label>
-    <input type="text" id="user" name="user">
+    <input type="text" id="user" name="user" value="<?= htmlentities($user) ?>">
     <br>
     <label for="user">密碼</label>
-    <input type="password" id="password" name="password">
+    <input type="password" id="password" name="password" value="<?= htmlentities($password) ?>">
     <br>
     <input type="submit" value="登入">
     <br>

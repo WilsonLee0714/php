@@ -4,7 +4,7 @@ if(! isset($_COOKIE['my_cookie'])){
     $c = 1;
 } else {
     $c = $_COOKIE['my_cookie'] +1;
-};
+}
 
 setcookie('my_cookie', $c);
 
