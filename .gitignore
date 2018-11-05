@@ -1,2 +1,5 @@
 /vendor/
 /uploads/
+/bootstrap/
+
+composer.lock
