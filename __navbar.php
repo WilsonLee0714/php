@@ -12,7 +12,10 @@
                     <a class="nav-link" href="ab_index.php">Home</a>
                 </li>
                 <li class="nav-item <?= $pname=='list' ? 'active' : '' ?>">
-                <a class="nav-link" href="ab_list.php">List</a>
+                    <a class="nav-link" href="ab_list.php">List</a>
+                </li>
+                <li class="nav-item <?= $pname=='add' ? 'active' : '' ?>">
+                    <a class="nav-link" href="ab_add.php">Add</a>
                 </li>
             </ul>
         </div>
