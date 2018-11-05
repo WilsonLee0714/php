@@ -1,8 +1,8 @@
 <?php
 require __DIR__. '/__connect_db.php';
-$pname = 'list'; // 自訂的頁面名稱
 
 $stmt = $pdo->query("SELECT * FROM address_book");
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php include __DIR__. '/__html_head.php'; ?>
 <?php include __DIR__. '/__navbar.php'; ?>
@@ -19,7 +19,7 @@ $stmt = $pdo->query("SELECT * FROM address_book");
         </tr>
         </thead>
         <tbody>
-        <?php while($r = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+        <?php foreach($data as $r): ?>
         <tr>
             <th scope="row"><?= $r['sid'] ?></th>
             <td><?= $r['name'] ?></td>
@@ -28,7 +28,7 @@ $stmt = $pdo->query("SELECT * FROM address_book");
             <td><?= $r['address'] ?></td>
             <td><?= $r['birthday'] ?></td>
         </tr>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>
