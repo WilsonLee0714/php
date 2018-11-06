@@ -9,7 +9,17 @@ $t_sql = "SELECT COUNT(1) FROM address_book";
 $total_rows = $pdo->query($t_sql)->fetch()[0]; //總筆數
 $total_pages = ceil($total_rows/$per_page); //總頁數
 
-$sql = sprintf("SELECT * FROM address_book LIMIT %s, %s",
+// 限定頁碼範圍
+if($page<1){
+    header('Location: ab_list.php');
+    exit;
+}
+if($page>$total_pages) {
+    header('Location: ab_list.php?page='. $total_pages);
+    exit;
+}
+
+$sql = sprintf("SELECT * FROM address_book ORDER BY sid DESC LIMIT %s, %s",
     ($page-1)*$per_page, $per_page);
 $stmt = $pdo->query($sql);
 ?>
@@ -46,14 +56,14 @@ $stmt = $pdo->query($sql);
         <tbody>
         <?php while($r = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
         <tr>
-            <td><a href="ab_del.php?sid=<?= $r['sid'] ?>"><i class="fas fa-trash-alt"></i></a></td>
+            <td><a href="javascript:del_it(<?= $r['sid'] ?>)"><i class="fas fa-trash-alt"></i></a></td>
             <th scope="row"><?= $r['sid'] ?></th>
             <td><?= $r['name'] ?></td>
             <td><?= $r['email'] ?></td>
             <td><?= $r['mobile'] ?></td>
             <td><?= $r['address'] ?></td>
             <td><?= $r['birthday'] ?></td>
-            <td><i class="fas fa-edit"></i></td>
+            <td><a href="ab_edit.php?sid=<?= $r['sid'] ?>"><i class="fas fa-edit"></i></a></td>
         </tr>
         <?php endwhile; ?>
         </tbody>
@@ -69,4 +79,12 @@ $stmt = $pdo->query($sql);
         </ul>
     </nav>
 </div>
+    <script>
+        function del_it(sid){
+            if(confirm('你確定要刪除編號為 '+sid+' 的資料嗎?')){
+                location.href = 'ab_del.php?sid=' + sid;
+            }
+        }
+
+    </script>
 <?php include __DIR__. '/__html_foot.php';
